@@ -11,9 +11,18 @@
  * @package    Planfactapi
  * @subpackage Planfactapi/admin/partials
  */
+
+
+
 class Settings_display{
     function settings() {
 
+        $obj = new Planfact_API_core();
+        $result =$obj->remote_request_to_planfact();
+        var_dump($result);
+//        echo '<pre>';
+//        print_r($result);
+//        echo '<pre>';
     }
 }
 ?>

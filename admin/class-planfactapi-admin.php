@@ -106,7 +106,7 @@ class Planfactapi_Admin {
         */
         add_options_page(
             'My plugin and Base Options Functions Setup',
-            'Settings',
+            'Planfact',
             'manage_options',
             'Settings',
             array($this, 'display_plugin_settings_page')
@@ -138,10 +138,23 @@ class Planfactapi_Admin {
         // страница фейс с настройками плагина
         $obj = new Settings_display();
         $obj->Settings();
-
     }
 
+    function show_new_fields_in_regform() {
 
+        $city = ! empty( $_POST[ 'city' ] ) ? $_POST[ 'city' ] : '';
+        $phone = ! empty( $_POST[ 'phone' ] ) ? $_POST[ 'phone' ] : '';
+        ?>
+        <p>
+            <label for="city">Город</label>
+            <input type="text" id="city" name="city" class="input" value="<?php echo esc_attr( $city ) ?>" size="100%" />
+        </p>
+        <p>
+            <label for="phone">Телефон</label>
+            <input type="text" id="phone" name="phone" class="input" value="<?php echo esc_attr( $phone ) ?>" size="100%" />
+        </p>
+        <?php
+    }
 
 
 }
