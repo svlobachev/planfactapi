@@ -167,7 +167,7 @@ class Planfactapi {
         $this->loader->add_filter( 'plugin_action_links_' . "$plugin_basename", $plugin_admin, 'add_action_links' );
         $this->loader->add_action( 'admin_menu', $plugin_admin, 'remove_menu_setting_links' );
 //        $this->loader->add_filter( 'register_form' . "$plugin_basename", $plugin_admin, 'show_new_fields_in_regform' );
-        $this->loader->add_action( 'register_form', $plugin_admin, 'show_new_fields_in_regform' );
+//        $this->loader->add_action( 'register_form', $plugin_admin, 'show_new_fields_in_regform' );
 	}
 
 	/**

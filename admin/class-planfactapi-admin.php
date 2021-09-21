@@ -155,6 +155,4 @@ class Planfactapi_Admin {
         </p>
         <?php
     }
-
-
 }

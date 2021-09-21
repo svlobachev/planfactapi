@@ -35,6 +35,3 @@ class Planfact_API_core{
         return $arr_response ;
     }
 }
-?>
-
-<!-- This file should primarily consist of HTML with a little bit of PHP. -->
