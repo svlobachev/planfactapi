@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       PlanfactAPI
  * Plugin URI:        https://github.com/svlobachev
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       Это плагин регистрирует пользователей на вебсайте planfact.io через API.
  * Version:           1.0.0
  * Author:            Sergei Lobachev
  * Author URI:        https://github.com/svlobachev/planfactapi

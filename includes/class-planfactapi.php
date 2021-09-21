@@ -111,6 +111,8 @@ class Planfactapi {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-planfactapi-i18n.php';
 
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-planfactapi-admin-settings.php';
+
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
@@ -157,6 +159,12 @@ class Planfactapi {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
+        $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_admin_menu' );
+
+        // Add Settings link to the plugin
+        $plugin_basename = plugin_basename( plugin_dir_path( __DIR__ ) . $this->plugin_name . '.php' );
+        $this->loader->add_filter( 'plugin_action_links_' . "$plugin_basename", $plugin_admin, 'add_action_links' );
+        $this->loader->add_action( 'admin_menu', $plugin_admin, 'remove_menu_setting_links' );
 	}
 
 	/**

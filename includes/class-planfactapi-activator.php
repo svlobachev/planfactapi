@@ -31,6 +31,11 @@ class Planfactapi_Activator {
 	 */
 	public static function activate() {
 
+        // Пишем лог ошибок при активации которые нужно исправить
+        // в противном случае при активации может появиться неприятная надпись типа:
+        // "Плагин создал х символов неожиданного вывода при активации."
+        file_put_contents( plugin_dir_path( __DIR__ ). 'activation.log', ob_get_contents() );
+
 	}
 
 }

@@ -30,7 +30,7 @@ class Planfactapi_Deactivator {
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
-
-	}
-
+        // удалим лог  ошибок при активации
+        unlink(plugin_dir_path( __DIR__ ). 'activation.log');
+    }
 }

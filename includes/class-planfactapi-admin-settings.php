@@ -11,7 +11,11 @@
  * @package    Planfactapi
  * @subpackage Planfactapi/admin/partials
  */
+class Settings_display{
+    function settings() {
 
+    }
+}
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
