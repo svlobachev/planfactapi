@@ -31,7 +31,6 @@ class Planfactapi_Activator {
 	 */
 	public static function activate() {
 
-
         if(TESTMODE) {
             // Пишем лог ошибок при активации которые нужно исправить
             // в противном случае при активации может появиться неприятная надпись типа:
@@ -40,5 +39,4 @@ class Planfactapi_Activator {
             file_put_contents(plugin_dir_path(__DIR__) . 'activation.log', ob_get_contents());
         }
 	}
-
 }
