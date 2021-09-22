@@ -140,19 +140,34 @@ class Planfactapi_Admin {
         $obj->Settings();
     }
 
-    function show_new_fields_in_regform() {
 
-        $city = ! empty( $_POST[ 'city' ] ) ? $_POST[ 'city' ] : '';
-        $phone = ! empty( $_POST[ 'phone' ] ) ? $_POST[ 'phone' ] : '';
+    function planfact_register_form() {
+
+        $first_name = ( ! empty( $_POST['first_name'] ) ) ? sanitize_text_field( $_POST['first_name'] ) : '';
+
         ?>
         <p>
-            <label for="city">Город</label>
-            <input type="text" id="city" name="city" class="input" value="<?php echo esc_attr( $city ) ?>" size="100%" />
-        </p>
-        <p>
-            <label for="phone">Телефон</label>
-            <input type="text" id="phone" name="phone" class="input" value="<?php echo esc_attr( $phone ) ?>" size="100%" />
+            <label for="first_name"><?php _e( 'First Name', 'mydomain' ) ?><br />
+                <input type="text" name="first_name" id="first_name" class="input" value="<?php echo esc_attr(  $first_name  ); ?>" size="100%" /></label>
         </p>
         <?php
     }
+
+    function planfact_registration_errors( $errors, $sanitized_user_login, $user_email ) {
+
+        if ( empty( $_POST['first_name'] ) || ! empty( $_POST['first_name'] ) && trim( $_POST['first_name'] ) == '' ) {
+            $errors->add( 'first_name_error', sprintf('<strong>%s</strong>: %s',__( 'ERROR', 'mydomain' ),__( 'You must include a first name.', 'mydomain' ) ) );
+
+        }
+
+        return $errors;
+    }
+
+    function planfact_user_register( $user_id ) {
+        if ( ! empty( $_POST['first_name'] ) ) {
+            update_user_meta( $user_id, 'first_name', sanitize_text_field( $_POST['first_name'] ) );
+        }
+    }
+
+
 }
