@@ -24,4 +24,5 @@ class Settings_display{
 //        print_r($result);
 //        echo '<pre>';
     }
+
 }

@@ -137,37 +137,37 @@ class Planfactapi_Admin {
     public function display_plugin_settings_page() {
         // страница фейс с настройками плагина
         $obj = new Settings_display();
-        $obj->Settings();
+        $obj->settings();
     }
 
+    function true_show_fields() {
 
-    function planfact_register_form() {
-
-        $first_name = ( ! empty( $_POST['first_name'] ) ) ? sanitize_text_field( $_POST['first_name'] ) : '';
-
+        $phone = ! empty( $_POST[ 'phone' ] ) ? $_POST[ 'phone' ] : '';
         ?>
         <p>
-            <label for="first_name"><?php _e( 'First Name', 'mydomain' ) ?><br />
-                <input type="text" name="first_name" id="first_name" class="input" value="<?php echo esc_attr(  $first_name  ); ?>" size="100%" /></label>
+            <label for="phone">Телефон</label>
+            <input type="text" id="phone" name="phone" class="input" value="<?php echo esc_attr( $phone ) ?>" size="25" />
         </p>
         <?php
     }
 
-    function planfact_registration_errors( $errors, $sanitized_user_login, $user_email ) {
+    function true_check_fields( $errors, $sanitized_user_login, $user_email ) {
 
-        if ( empty( $_POST['first_name'] ) || ! empty( $_POST['first_name'] ) && trim( $_POST['first_name'] ) == '' ) {
-            $errors->add( 'first_name_error', sprintf('<strong>%s</strong>: %s',__( 'ERROR', 'mydomain' ),__( 'You must include a first name.', 'mydomain' ) ) );
+        /*
+         * Функция проверки полей, в этом примере только смотрит, чтобы они не оставались пустыми,
+         * но можно задать и свои условия,
+         * например запретить пользователям регистрироваться под одним и тем же номером телефона
+         */
 
+        if( empty( $_POST[ 'phone' ]  || ! empty( $_POST['phone'] ) && trim( $_POST['phone'] ) == '' ) ) {
+            $errors->add( 'empty_phone', '<strong>ОШИБКА:</strong> Укажите телефон пожалуйста.' );
         }
-
         return $errors;
     }
+    function true_register_fields( $user_id ) {
 
-    function planfact_user_register( $user_id ) {
-        if ( ! empty( $_POST['first_name'] ) ) {
-            update_user_meta( $user_id, 'first_name', sanitize_text_field( $_POST['first_name'] ) );
-        }
+        update_user_meta( $user_id, 'phone', sanitize_text_field( $_POST[ 'phone' ] ) );
+
     }
-
 
 }
