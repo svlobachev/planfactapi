@@ -1,0 +1,13 @@
+{
+    "name": "sergei/planfactapi",
+    "authors": [
+        {
+            "name": "Sergei",
+            "email": "gsvlobachev@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    }
+}

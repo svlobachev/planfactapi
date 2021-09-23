@@ -140,34 +140,92 @@ class Planfactapi_Admin {
         $obj->settings();
     }
 
-    function true_show_fields() {
+    function regform_show_fields() {
 
         $phone = ! empty( $_POST[ 'phone' ] ) ? $_POST[ 'phone' ] : '';
         ?>
         <p>
             <label for="phone">Телефон</label>
-            <input type="text" id="phone" name="phone" class="input" value="<?php echo esc_attr( $phone ) ?>" size="25" />
+            <input type="text" id="phone" name="phone" class="input" value="<?php echo esc_attr( $phone ) ?>" size="12" />
         </p>
         <?php
     }
 
-    function true_check_fields( $errors, $sanitized_user_login, $user_email ) {
-
-        /*
-         * Функция проверки полей, в этом примере только смотрит, чтобы они не оставались пустыми,
-         * но можно задать и свои условия,
-         * например запретить пользователям регистрироваться под одним и тем же номером телефона
-         */
-
-        if( empty( $_POST[ 'phone' ]  || ! empty( $_POST['phone'] ) && trim( $_POST['phone'] ) == '' ) ) {
+    function regform_check_fields( $errors) {
+        $errors = new WP_Error;
+        if( empty( $_POST[ 'phone' ] ) ) {
             $errors->add( 'empty_phone', '<strong>ОШИБКА:</strong> Укажите телефон пожалуйста.' );
         }
         return $errors;
     }
-    function true_register_fields( $user_id ) {
+
+    function regform_register_fields( $user_id ) {
+
+        update_user_meta( $user_id, 'phone', sanitize_text_field( $_POST[ 'phone' ] ) );
+        $this->redirect_on_planfact();
+    }
+
+    // добавляем в админку
+    function regform_admin_registration_form( $operation ) {
+
+        if ( 'add-new-user' !== $operation ) {
+            // $operation может так же принимать значение 'add-existing-user' для мультисайта
+            return;
+        }
+
+        $phone = ! empty( $_POST[ 'phone' ] ) ? $_POST[ 'phone' ] : '';
+
+        ?>
+        <h3>Дополнительная информация</h3>
+
+        <table class="form-table">
+            <tr class="form-field">
+                <th><label for="phone">Телефон</label></th>
+                <td><input id="phone" name="phone" class="input" type="text" value="<?php echo esc_attr( $phone ) ?>" /></td>
+            </tr>
+        </table>
+        <?php
+    }
+
+    function regform_validate_fields_in_admin( $errors, $update, $user ) {
+
+        if ( $update ) {
+            return;
+        }
+
+        if( empty( $_POST[ 'phone' ] ) ) {
+            $errors->add( 'empty_phone', '<strong>ОШИБКА:</strong> Укажите телефон пожалуйста.' );
+        }
+    }
+
+    function regform_register_admin_fields( $user_id ) {
 
         update_user_meta( $user_id, 'phone', sanitize_text_field( $_POST[ 'phone' ] ) );
 
     }
 
+    function regform_show_profile_fields( $user ) {
+
+        // выводим заголовок для наших полей
+        echo '<h3>Дополнительная информация</h3>';
+
+        // поля в профиле находятся в рамметке таблиц <table>
+        echo '<table class="form-table">';
+
+        // добавляем поле телефон
+        $phone = get_the_author_meta( 'phone', $user->ID );
+        echo '<tr><th><label for="phone">Телефон</label></th>
+ 	<td><input type="text" name="phone" id="phone" value="' . esc_attr( $phone ) . '" class="regular-text" /></td>
+	</tr>';
+        echo '</table>';
+    }
+
+    function regform_save_profile_fields( $user_id ) {
+        update_user_meta( $user_id, 'phone', sanitize_text_field( $_POST[ 'phone' ] ) );
+    }
+
+    function redirect_on_planfact(){
+        wp_redirect( 'http://google.ru' );
+    }
+    //if(TESTMODE)file_put_contents(plugin_dir_path(__DIR__) . 'errors.log', print_r($errors, 1));
 }

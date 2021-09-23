@@ -1,0 +1,20 @@
+WP_Error Object
+(
+    [errors] => Array
+        (
+            [empty_phone] => Array
+                (
+                    [0] => <strong>ОШИБКА:</strong> Укажите телефон плз.
+                )
+
+        )
+
+    [error_data] => Array
+        (
+        )
+
+    [additional_data:protected] => Array
+        (
+        )
+
+)

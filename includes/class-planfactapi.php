@@ -163,12 +163,27 @@ class Planfactapi {
         $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_plugin_admin_menu' );
         $plugin_basename = plugin_basename( plugin_dir_path( __DIR__ ) . $this->plugin_name . '.php' );
         $this->loader->add_filter( 'plugin_action_links_' . "$plugin_basename", $plugin_admin, 'add_action_links' );
-
         $this->loader->add_action( 'admin_menu', $plugin_admin, 'remove_menu_setting_links' );
 
-        $this->loader->add_action( 'register_form', $plugin_admin, 'true_show_fields', 1);
-        $this->loader->add_filter( 'registration_errors', $plugin_admin,  'true_check_fields', 25, 3 );
-        $this->loader->add_action( 'user_register',  $plugin_admin,'true_register_fields' );
+        //добавим поля в форму регистрации на фронте
+        $this->loader->add_action( 'register_form', $plugin_admin, 'regform_show_fields', 1 );
+        $this->loader->add_filter( 'registration_errors', $plugin_admin, 'regform_check_fields', 25, 3 );
+        $this->loader->add_action( 'user_register', $plugin_admin, 'regform_register_fields' );
+        //добавим поля в админку в форму добавить пользователя
+        $this->loader->add_action( 'user_new_form', $plugin_admin, 'regform_admin_registration_form' );
+        $this->loader->add_action( 'user_profile_update_errors', $plugin_admin, 'regform_validate_fields_in_admin', 10, 3 );
+        $this->loader->add_action( 'edit_user_created_user', $plugin_admin, 'regform_register_admin_fields' );
+        //добавим поля в админку в профиль пользователя
+
+        // когда пользователь сам редактирует свой профиль
+        $this->loader->add_action( 'show_user_profile', $plugin_admin,  'regform_show_profile_fields' );
+        // когда чей-то профиль редактируется админом например
+        $this->loader->add_action( 'edit_user_profile', $plugin_admin,  'regform_show_profile_fields' );
+        // когда пользователь сам редактирует свой профиль
+        $this->loader->add_action( 'personal_options_update', $plugin_admin,  'regform_save_profile_fields' );
+        // когда чей-то профиль редактируется админом например
+        $this->loader->add_action( 'edit_user_profile_update',  $plugin_admin, 'regform_save_profile_fields' );
+
 
 	}
 
