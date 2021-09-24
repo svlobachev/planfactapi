@@ -14,15 +14,15 @@
 
 class Planfact_API_core{
 
-    function remote_request_to_planfact() {
+    function remote_request_to_planfact($user_nicename, $user_email, $user_phone) {
         $url = 'https://api.planfact.io/api/v1/';
         $link = $url.'businesses';
         $api_key = 'VuH3ENUjSrDnuvssxouAT5KuAvWyZFJe8pB67w8k3MRoYV8Bmc3aX7PeU6ZUzL4JKAoYCgPkwyDc76DE6xRYmZmpaxOs8Y7b';
         $data = [
-                "email" => "6gsvlobachev@gmail.com",
+                "email" => $user_email,
                 "countryIso2Code"=>  "Russia",
-                "phoneNumber"=>  "+79525687080",
-                "firstName"=>  "Sergei",
+                "phoneNumber"=>  $user_phone,
+                "firstName"=>  $user_nicename,
                 "partnerApiKey"=>  $api_key
                 ];
         $response = wp_remote_request($link, array(
@@ -31,7 +31,37 @@ class Planfact_API_core{
             'method'      => 'POST',
             'data_format' => 'body',
         ));
-        $arr_response = json_decode($response['body'], ARRAY_A);
-        return $arr_response ;
+        $obj_response = json_decode($response['body'] );
+        return $obj_response ;
+
+//        stdClass Object
+//        (
+//            [data] => stdClass Object
+//            (
+//                [apiKey] => HuOltjHipb34TsJG94Irv9iHe_6SljEreQ1V_xQBonzE42IH4PrMXbkwt6zEId0YL2n72x3F8asFYHPKAjviTiAzBP4HV03ac9NKta5aeOt35k-ORdRXcUlYQwPtdjmimRv7evDhOl8s8qOsQwHFK9BosEqX4-fMGIJomQu8L6Vus_uaySJjecA0b2KWYYgt2MWxIOUDk-Us57WdVcYGENHELrV2Nrcc83-_BH9DMXdhOXH4Q8HPNOTyiDfPAz1F6_IvBwRoefRVTAVwwblwbvQ8shai-RB_gp7H1bxS-_Fkz43ULRp213sW6PH-xbA2zupbWI5NS33uWwyE8UI5U851MUxbemwg1yIHO0_DWrwdwyHlZI0NOaLqpoAZSGAvkPWVyKWj75kxmaQaGlbnZBq9LCqM9HG6J01UheN-fF1jsz4y0NycQJzhqw_yyO6jDBKA2XJ2N50wQRWKrmcUFDcQDkShV35PB7bKwjknPgaXnsS5pJWSKFvB0b3swXbV8MoZcel19Iym_q7_6fjMB44xzzE0QqkxH_uRCbkBLTFj46NNBxfUc1gqj872Sq6M6p9ke_ky3rZKqAU5Mx-aduGzTI8
+//                [businessId] => 37279758-9254-4a21-95db-c7166c4e378f
+//                [businessTitle] =>
+//            )
+//
+//            [isSuccess] => 1
+//            [errorMessage] =>
+//            [errorCode] =>
+//        )
+
+//        http://localhost/wp-login.php?checkemail=registered
     }
+
+        function my_encode($incoming_string)
+        {
+            return base64_encode(strrev(SECURE_AUTH_KEY.$incoming_string ));
+        }
+        function my_decode($incoming_string){
+            $decode_string = base64_decode($incoming_string);
+            return str_replace(SECURE_AUTH_KEY, "", strrev($decode_string));
+
+        }
+
+        function my_url_for_redirect(){
+            return $url = "";
+        }
 }

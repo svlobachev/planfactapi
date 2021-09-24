@@ -152,17 +152,32 @@ class Planfactapi_Admin {
     }
 
     function regform_check_fields( $errors) {
-        $errors = new WP_Error;
         if( empty( $_POST[ 'phone' ] ) ) {
             $errors->add( 'empty_phone', '<strong>ОШИБКА:</strong> Укажите телефон пожалуйста.' );
+        }
+        $obj = new Planfact_API_core();
+        $user_planfact_regintration_info= $obj->remote_request_to_planfact(
+                sanitize_text_field( $_POST['user_login']),
+                sanitize_text_field( $_POST['user_email']),
+                sanitize_text_field( $_POST[ 'phone' ] ) );
+
+
+
+        if($user_planfact_regintration_info->isSuccess == false){
+            $errors->add( 'errorMessage', "<strong>ОШИБКА:</strong> $user_planfact_regintration_info->errorMessage." );
+        }
+        else{
+            $_POST['apiKey'] = $user_planfact_regintration_info->data->apiKey;
+            $_POST['businessId'] = $user_planfact_regintration_info->data->businessId;
         }
         return $errors;
     }
 
     function regform_register_fields( $user_id ) {
-
-        update_user_meta( $user_id, 'phone', sanitize_text_field( $_POST[ 'phone' ] ) );
-        $this->redirect_on_planfact();
+        $obj = new Planfact_API_core();
+        update_user_meta( $user_id, 'phone', sanitize_text_field( $_POST[ 'phone' ] ));
+        update_user_meta( $user_id, 'apiKey', $obj->my_encode(sanitize_text_field( $_POST[ 'apiKey' ] )));
+        update_user_meta( $user_id, 'businessId', $obj->my_encode(sanitize_text_field( $_POST[ 'businessId' ] )));
     }
 
     // добавляем в админку
@@ -215,8 +230,8 @@ class Planfactapi_Admin {
         // добавляем поле телефон
         $phone = get_the_author_meta( 'phone', $user->ID );
         echo '<tr><th><label for="phone">Телефон</label></th>
- 	<td><input type="text" name="phone" id="phone" value="' . esc_attr( $phone ) . '" class="regular-text" /></td>
-	</tr>';
+        <td><input type="text" name="phone" id="phone" value="' . esc_attr( $phone ) . '" class="regular-text" /></td>
+        </tr>';
         echo '</table>';
     }
 
@@ -224,8 +239,14 @@ class Planfactapi_Admin {
         update_user_meta( $user_id, 'phone', sanitize_text_field( $_POST[ 'phone' ] ) );
     }
 
-    function redirect_on_planfact(){
-        wp_redirect( 'http://google.ru' );
+    function after_login_or_registration_redirect_on_planfact(){
+        $user = wp_get_current_user();
+        if(is_user_logged_in() && $user->roles[0] != 'administrator'){//если юзер вошел
+//        wp_redirect( 'http://google.ru' );
+        }
+        if(TESTMODE)file_put_contents(plugin_dir_path(__DIR__) . 'debug.log', print_r($user->roles[0], 1));
+//        wp_redirect( 'http://google.ru' );
     }
-    //if(TESTMODE)file_put_contents(plugin_dir_path(__DIR__) . 'errors.log', print_r($errors, 1));
+
+    //if(TESTMODE)file_put_contents(plugin_dir_path(__DIR__) . 'debug.log', print_r($errors, 1));
 }

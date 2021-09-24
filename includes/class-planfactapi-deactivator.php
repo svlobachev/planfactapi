@@ -30,9 +30,9 @@ class Planfactapi_Deactivator {
 	 * @since    1.0.0
 	 */
 	public static function deactivate() {
-        // удалим лог ошибок созданный при активации
         try{
             @unlink(plugin_dir_path( __DIR__ ). 'activation.log');
+            @unlink(plugin_dir_path( __DIR__ ). 'debug.log');
         } catch (Exception $e) {
             if(TESTMODE) echo 'Caught exception: ',  $e->getMessage(), "\n";
         }

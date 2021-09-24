@@ -13,13 +13,17 @@
  */
 
 
-
 class Settings_display{
     function settings() {
-
         $obj = new Planfact_API_core();
-        $result =$obj->remote_request_to_planfact();
-        var_dump($result);
+        $encode_string = $obj->my_encode("Привет золотой ключик!");
+        echo $obj->my_decode($encode_string);
+
+
+
+
+
+
 //        echo '<pre>';
 //        print_r($result);
 //        echo '<pre>';

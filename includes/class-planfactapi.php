@@ -184,6 +184,8 @@ class Planfactapi {
         // когда чей-то профиль редактируется админом например
         $this->loader->add_action( 'edit_user_profile_update',  $plugin_admin, 'regform_save_profile_fields' );
 
+        $this->loader->add_action('init',  $plugin_admin, 'after_login_or_registration_redirect_on_planfact');
+
 
 	}
 
