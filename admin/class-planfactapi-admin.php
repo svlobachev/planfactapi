@@ -125,7 +125,7 @@ class Planfactapi_Admin {
     public function add_action_links( $links ) {
         //Добавим ссылки в инсталятор плагинов
         $settings_link = array(
-            '<a href="' . admin_url( 'options-general.php?page=Settings' ) . '">' . __('Settings', 'Settings') . '</a>',
+            '<a href="' . admin_url( 'options-general.php?page=Settings' ) . '">' . __('Настройки', 'Settings') . '</a>',
         );
         return array_merge(  $settings_link, $links);
     }
