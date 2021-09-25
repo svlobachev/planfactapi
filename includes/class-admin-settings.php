@@ -15,18 +15,44 @@
 
 class Settings_display{
     function settings() {
-        $obj = new Planfact_API_core();
-        $encode_string = $obj->my_encode("Привет золотой ключик!");
-        echo $obj->my_decode($encode_string);
+        global $wpdb; // запрашиваем БД WP
+        $table_name = $wpdb->get_blog_prefix() . 'planfactapi_settings';
+        $result = $wpdb->get_results( "SELECT * FROM $table_name", ARRAY_A);
+        foreach ( $result as $key => $row ) {
+            if($row['name'] == 'api_key')$api_key = $row['value'];
+        }
 
+        if(@$_POST['planfactapi_key']) $api_key = $_POST['planfactapi_key'];
+        if(empty($api_key) || !isset($api_key)) $api_key = '';// поставим значение по умолчанию
+        ?><div class="wrap">
+        <h2><?php _e('Settings') ?> Planfact API </h2>
+        <form method="post" enctype="multipart/form-data" action="">
+            <?php
+            ?><br /><br />
+            <?php _e('Ваш ПланФакт api_key?') ?>
 
+            <label><input type="text" name="planfactapi_key" maxlength="100" size="45" value="<?php echo $api_key ?>"></label>
 
+            <p class="submit">
+                <input type="submit" class="button-primary" value="<?php _e('Применить изменения') ?>" />
+            </p>
+        </form>
+        </div><?php
+        if(@$_POST){//если пользователь отправил данные в форме
 
+            $result = $wpdb->get_results( "SELECT * FROM $table_name", ARRAY_A);
+            foreach ( $result as $row ) {
+                if($row['name'] == 'api_key') {
+                    $id = $row['id'];
+                    $wpdb->update( $table_name,// обновим токен
+                        [ 'value' => @$_POST['planfactapi_key']],
+                        [ 'id' => $id ]
 
-
-//        echo '<pre>';
-//        print_r($result);
-//        echo '<pre>';
+                    );
+                }
+            }
+            _e('Данные обновлены.');
+        }
 
     }
 

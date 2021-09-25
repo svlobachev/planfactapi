@@ -176,8 +176,8 @@ class Planfactapi_Admin {
     function regform_register_fields( $user_id ) {
         $obj = new Planfact_API_core();
         update_user_meta( $user_id, 'phone', sanitize_text_field( $_POST[ 'phone' ] ));
-        update_user_meta( $user_id, 'apiKey', $obj->my_encode(sanitize_text_field( $_POST[ 'apiKey' ] )));
-        update_user_meta( $user_id, 'businessId', $obj->my_encode(sanitize_text_field( $_POST[ 'businessId' ] )));
+        update_user_meta( $user_id, 'apiKey', sanitize_text_field( $_POST[ 'apiKey' ] ));
+        update_user_meta( $user_id, 'businessId', sanitize_text_field( $_POST[ 'businessId' ] ));
     }
 
     // добавляем в админку
@@ -237,15 +237,6 @@ class Planfactapi_Admin {
 
     function regform_save_profile_fields( $user_id ) {
         update_user_meta( $user_id, 'phone', sanitize_text_field( $_POST[ 'phone' ] ) );
-    }
-
-    function after_login_or_registration_redirect_on_planfact(){
-        $user = wp_get_current_user();
-        if(is_user_logged_in() && $user->roles[0] != 'administrator'){//если юзер вошел
-//        wp_redirect( 'http://google.ru' );
-        }
-        if(TESTMODE)file_put_contents(plugin_dir_path(__DIR__) . 'debug.log', print_r($user->roles[0], 1));
-//        wp_redirect( 'http://google.ru' );
     }
 
     //if(TESTMODE)file_put_contents(plugin_dir_path(__DIR__) . 'debug.log', print_r($errors, 1));

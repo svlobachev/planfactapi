@@ -30,6 +30,28 @@ class Planfactapi_Activator {
 	 * @since    1.0.0
 	 */
 	public static function activate() {
+        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+        // создадим таблицу в БД WP
+        global $wpdb;
+        //создаем первую таблицу
+        $table_name = $wpdb->get_blog_prefix() . 'planfactapi_settings';
+        $charset_collate = "DEFAULT CHARACTER SET {$wpdb->charset} COLLATE {$wpdb->collate}";
+        $sql = "CREATE TABLE {$table_name} (
+	    id int(11) unsigned NOT NULL auto_increment,
+	    name varchar(255) NULL,
+	    value varchar(255) NULL,
+	    PRIMARY KEY  (id),
+	    KEY id (id)
+		) {$charset_collate};";
+        dbDelta( $sql );// Создать таблицу.
+
+        // если таблица пуста вставим значение по умолчанию
+        $result = $wpdb->get_results( "SELECT * FROM $table_name", ARRAY_A);
+        if(empty($result)) {// если таблица пуста вставим значение по умолчанию
+            $wpdb->insert( $table_name, [ 'name' => 'api_key', 'value' => 'Ваш ПланФакт api_key'], [ '%s', '%s' ] );
+        }
+
+
 
         if(TESTMODE) {
             // Пишем лог ошибок при активации которые нужно исправить

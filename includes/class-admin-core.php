@@ -15,9 +15,14 @@
 class Planfact_API_core{
 
     function remote_request_to_planfact($user_nicename, $user_email, $user_phone) {
+        global $wpdb; // запрашиваем БД WP
+        $table_name = $wpdb->get_blog_prefix() . 'planfactapi_settings';
+        $result = $wpdb->get_results( "SELECT * FROM $table_name", ARRAY_A);
+        foreach ( $result as $key => $row ) {
+            if($row['name'] == 'api_key')$api_key = $row['value'];
+        }
         $url = 'https://api.planfact.io/api/v1/';
         $link = $url.'businesses';
-        $api_key = 'VuH3ENUjSrDnuvssxouAT5KuAvWyZFJe8pB67w8k3MRoYV8Bmc3aX7PeU6ZUzL4JKAoYCgPkwyDc76DE6xRYmZmpaxOs8Y7b';
         $data = [
                 "email" => $user_email,
                 "countryIso2Code"=>  "Russia",
@@ -51,17 +56,4 @@ class Planfact_API_core{
 //        http://localhost/wp-login.php?checkemail=registered
     }
 
-        function my_encode($incoming_string)
-        {
-            return base64_encode(strrev(SECURE_AUTH_KEY.$incoming_string ));
-        }
-        function my_decode($incoming_string){
-            $decode_string = base64_decode($incoming_string);
-            return str_replace(SECURE_AUTH_KEY, "", strrev($decode_string));
-
-        }
-
-        function my_url_for_redirect(){
-            return $url = "";
-        }
 }

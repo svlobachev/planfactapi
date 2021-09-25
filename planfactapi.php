@@ -14,11 +14,11 @@
  *
  * @wordpress-plugin
  * Plugin Name:       PlanfactAPI
- * Plugin URI:        https://github.com/svlobachev
+ * Plugin URI:        https://github.com/svlobachev/planfactapi
  * Description:       Это плагин регистрирует пользователей на вебсайте planfact.io через API.
  * Version:           1.0.0
  * Author:            Sergei Lobachev
- * Author URI:        https://github.com/svlobachev/planfactapi
+ * Author URI:        https://github.com/svlobachev/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       planfactapi
@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'TESTMODE', true );// включить, отключить режим тестирования
+define( 'TESTMODE', false );// включить, отключить режим тестирования
 
 define( 'PLANFACTAPI_VERSION', '1.0.0' );
 
