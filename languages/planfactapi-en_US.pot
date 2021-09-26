@@ -1,0 +1,83 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PlanfactAPI\n"
+"POT-Creation-Date: 2021-09-26 09:43+0300\n"
+"PO-Revision-Date: 2021-09-26 09:44+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.0\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: planfactapi.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
+"_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+
+#: admin/classes/class-admin-core.php:53
+#: admin/classes/class-planfactapi-admin.php:128
+msgid "Settings"
+msgstr "Настройки"
+
+#: admin/classes/class-admin-core.php:57
+#, fuzzy
+msgid "Your PlanFact api_key?"
+msgstr "Ваш api_key PlanFact?"
+
+#: admin/classes/class-admin-core.php:62
+msgid "Apply changes"
+msgstr "Применить изменения"
+
+#: admin/classes/class-admin-core.php:79
+#, fuzzy
+msgid "Data has been updated."
+msgstr "Данные обновлены."
+
+#. Plugin Name of the plugin/theme
+msgid "PlanfactAPI"
+msgstr "ПланнФакт"
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/svlobachev/planfactapi"
+msgstr "https://github.com/svlobachev/planfactapi"
+
+#. Description of the plugin/theme
+#, fuzzy
+msgid "This plugin registers users on the planfact.io website via an API."
+msgstr ""
+"Этот плагин регистрирует пользователей на веб-сайте planfact.io через API."
+
+#. Author of the plugin/theme
+msgid "Sergei Lobachev"
+msgstr "Сергей Лобачев"
+
+#. Author URI of the plugin/theme
+msgid "https://github.com/svlobachev/"
+msgstr "https://github.com/svlobachev/"
+
+#~ msgid "Настройки"
+#~ msgstr "Настройки"
+
+#~ msgid ""
+#~ "Это плагин регистрирует пользователей на вебсайте planfact.io через API."
+#~ msgstr ""
+#~ "Это плагин регистрирует пользователей на вебсайте planfact.io через API."
+
+#~ msgid "Сергей Лобачев"
+#~ msgstr "Sergei Lobachev"
+
+#~ msgid "Ваш ПланФакт api_key?"
+#~ msgstr "Ваш ПланФакт api_key?"
+
+#~ msgid "Применить изменения"
+#~ msgstr "Применить изменения"
+
+#~ msgid "Данные обновлены."
+#~ msgstr "Данные обновлены."

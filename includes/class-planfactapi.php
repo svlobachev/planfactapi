@@ -117,7 +117,7 @@ class Planfactapi {
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/classes/class-planfactapi.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/classes/class-planfactapi-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
