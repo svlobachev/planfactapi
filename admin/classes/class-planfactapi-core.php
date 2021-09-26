@@ -50,7 +50,7 @@ class Planfact_API_core{
         if(@$_POST['planfactapi_key']) $api_key = $_POST['planfactapi_key'];
         if(empty($api_key) || !isset($api_key)) $api_key = '';// поставим значение по умолчанию
         ?><div class="wrap">
-        <h2><?php _e('Settings') ?> Planfact API </h2>
+        <h2><?php _e('Настройки') ?> Planfact API </h2>
         <form method="post" enctype="multipart/form-data" action="">
             <?php
             ?><br /><br />
@@ -78,6 +78,5 @@ class Planfact_API_core{
             }
             _e('Данные обновлены.');
         }
-
     }
 }

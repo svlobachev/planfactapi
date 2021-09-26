@@ -112,12 +112,12 @@ class Planfactapi {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-planfactapi-i18n.php';
 
 
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/classes/class-admin-core.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/classes/class-planfactapi-core.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/classes/class-planfactapi-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/classes/class-planfactapi.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
