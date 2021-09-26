@@ -12,8 +12,33 @@
  * @subpackage Planfactapi/admin/partials
  */
 
+class Planfact_API_core{
 
-class Settings_display{
+    function remote_request_to_planfact($user_nicename, $user_email, $user_phone) {
+        global $wpdb; // запрашиваем БД WP
+        $table_name = $wpdb->get_blog_prefix() . 'planfactapi_settings';
+        $result = $wpdb->get_results( "SELECT * FROM $table_name", ARRAY_A);
+        foreach ( $result as $key => $row ) {
+            if($row['name'] == 'api_key')$api_key = $row['value'];
+        }
+        $url = 'https://api.planfact.io/api/v1/';
+        $link = $url.'businesses';
+        $data = [
+                "email" => $user_email,
+                "countryIso2Code"=>  "Russia",
+                "phoneNumber"=>  $user_phone,
+                "firstName"=>  $user_nicename,
+                "partnerApiKey"=>  $api_key
+                ];
+        $response = wp_remote_request($link, array(
+            'headers'     => array('Content-Type' => 'application/json; charset=utf-8'),
+            'body'        => json_encode($data),
+            'method'      => 'POST',
+            'data_format' => 'body',
+        ));
+        $obj_response = json_decode($response['body'] );
+        return $obj_response ;
+    }
     function settings() {
         global $wpdb; // запрашиваем БД WP
         $table_name = $wpdb->get_blog_prefix() . 'planfactapi_settings';
@@ -55,5 +80,4 @@ class Settings_display{
         }
 
     }
-
 }

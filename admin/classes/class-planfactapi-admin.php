@@ -136,7 +136,7 @@ class Planfactapi_Admin {
 
     public function display_plugin_settings_page() {
         // страница фейс с настройками плагина
-        $obj = new Settings_display();
+        $obj = new Planfact_API_core();
         $obj->settings();
     }
 
