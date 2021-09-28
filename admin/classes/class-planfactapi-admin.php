@@ -140,14 +140,40 @@ class Planfactapi_Admin {
         $obj->settings();
     }
 
-    function regform_show_fields() {
 
+
+    function regform_show_fields() {
+        $key = implode('', str_split(substr(strtolower(md5(microtime().rand(1000, 9999))), 0, 30), 6));
+        $_POST['loginpress-reg-pass'] = $key;
+        $_POST['loginpress-reg-pass-2'] = $key;
         $phone = ! empty( $_POST[ 'phone' ] ) ? $_POST[ 'phone' ] : '';
         ?>
-        <p>
+
+            <style>
+                .phone_code {
+                    font-size: 15px;
+                    line-height: 1.33333333; /* 32px */
+                    width: 30%;
+                    border-width: 0.0625rem;
+                    padding: 0.1875rem 0.3125rem; /* 3px 5px */
+                    margin: 0 6px 16px 0;
+                    min-height: 40px;
+                    max-height: none;
+                }
+            </style>
+
             <label for="phone">Телефон</label>
-            <input type="text" id="phone" name="phone" class="input" value="<?php echo esc_attr( $phone ) ?>" size="12" />
-        </p>
+            <div style="display:  flex" >
+                <label for="phone_code"></label><select id="phone_code" name="phone_code" class="phone_code" >
+                <option selected value="+7">+7</option>
+                <option value="+375">+375</option>
+                <option value="+994">+994</option>
+                <option value="+374">+374</option>
+                <option value="+995">+995</option>
+            </select>
+            <input type="text" id="phone" name="phone" class="input" value="<?php echo esc_attr( $phone ) ?>" />
+        </div>
+
         <?php
     }
 
@@ -156,25 +182,26 @@ class Planfactapi_Admin {
             $errors->add( 'empty_phone', '<strong>ОШИБКА:</strong> Укажите телефон пожалуйста.' );
         }
         $obj = new Planfact_API_core();
+        $phone= $_POST[ 'phone_code' ] .$_POST[ 'phone' ];
         $user_planfact_regintration_info= $obj->remote_request_to_planfact(
                 sanitize_text_field( $_POST['user_login']),
                 sanitize_text_field( $_POST['user_email']),
-                sanitize_text_field( $_POST[ 'phone' ] ) );
+                sanitize_text_field( $phone ) );
 
 
-
+        if(TESTMODE)file_put_contents(plugin_dir_path(__DIR__) . 'debug.log', print_r($_POST, 1));
         if($user_planfact_regintration_info->isSuccess == false){
             $errors->add( 'errorMessage', "<strong>ОШИБКА:</strong> $user_planfact_regintration_info->errorMessage." );
         }
         else{
             $_POST['apiKey'] = $user_planfact_regintration_info->data->apiKey;
             $_POST['businessId'] = $user_planfact_regintration_info->data->businessId;
+            $_POST[ 'phone' ]= $_POST[ 'phone_code' ] .$_POST[ 'phone' ];
         }
         return $errors;
     }
 
     function regform_register_fields( $user_id ) {
-        $obj = new Planfact_API_core();
         update_user_meta( $user_id, 'phone', sanitize_text_field( $_POST[ 'phone' ] ));
         update_user_meta( $user_id, 'apiKey', sanitize_text_field( $_POST[ 'apiKey' ] ));
         update_user_meta( $user_id, 'businessId', sanitize_text_field( $_POST[ 'businessId' ] ));
@@ -229,8 +256,16 @@ class Planfactapi_Admin {
 
         // добавляем поле телефон
         $phone = get_the_author_meta( 'phone', $user->ID );
+        $apiKey = get_the_author_meta( 'apiKey', $user->ID );
+        $businessId = get_the_author_meta( 'businessId', $user->ID );
         echo '<tr><th><label for="phone">Телефон</label></th>
         <td><input type="text" name="phone" id="phone" value="' . esc_attr( $phone ) . '" class="regular-text" /></td>
+        </tr>';
+        echo '<tr><th><label for="apiKey">ApiKey</label></th>
+        <td><input readonly type="text" name="apiKey" id="apiKey" value="' . esc_attr( $apiKey ) . '" class="regular-text" /></td>
+        </tr>';
+        echo '<tr><th><label for="businessId">BusinessId</label></th>
+        <td><input readonly type="text" name="businessId" id="businessId" value="' . esc_attr( $businessId ) . '" class="regular-text" /></td>
         </tr>';
         echo '</table>';
     }

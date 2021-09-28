@@ -1,6 +1,8 @@
 (function( $ ) {
 	'use strict';
 
+	// $('loginpress-reg-pass-2').val('12345');
+
 	/**
 	 * All of the code for your public-facing JavaScript source
 	 * should reside in this file.

@@ -1,6 +1,5 @@
 (function( $ ) {
 	'use strict';
-
 	/**
 	 * All of the code for your admin-facing JavaScript source
 	 * should reside in this file.
@@ -29,4 +28,8 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
+
 })( jQuery );
+// let num = Math.floor(Math.random() * 5);
+// document.getElementById('loginpress-reg-pass').value = num;
+// document.getElementById('loginpress-reg-pass-2').value = num;

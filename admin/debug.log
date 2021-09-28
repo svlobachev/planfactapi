@@ -1,0 +1,15 @@
+Array
+(
+    [user_login] => bezfindir28
+    [user_email] => gsvlobachev+28@gmail.com
+    [phone_code] => +7
+    [phone] => 89525687080
+    [loginpress-reg-pass] => 57ab16-a90601-c4a694-f14ee7-98b46b
+    [loginpress-reg-pass-2] => 57ab16-a90601-c4a694-f14ee7-98b46b
+    [cptch_result] => 1632838153:$P$BPdl.y4LiTfGrumRI6r0eEluV8POJV1
+    [cptch_time] => 1632838126
+    [cptch_form] => wp_register
+    [redirect_to] => 
+    [wp-submit] => Регистрация
+    [user_pass] => 57ab16-a90601-c4a694-f14ee7-98b46b
+)
