@@ -143,10 +143,8 @@ class Planfactapi_Admin {
 
 
     function regform_show_fields() {
-        $key = implode('', str_split(substr(strtolower(md5(microtime().rand(1000, 9999))), 0, 30), 6));
-        $_POST['loginpress-reg-pass'] = $key;
-        $_POST['loginpress-reg-pass-2'] = $key;
         $phone = ! empty( $_POST[ 'phone' ] ) ? $_POST[ 'phone' ] : '';
+        $checkbox = ! empty( $_POST[ 'checkbox' ] ) ? $_POST[ 'checkbox' ] : '';
         ?>
 
             <style>
@@ -172,14 +170,25 @@ class Planfactapi_Admin {
                 <option value="+995">+995</option>
             </select>
             <input type="text" id="phone" name="phone" class="input" value="<?php echo esc_attr( $phone ) ?>" />
+
         </div>
 
+        <label for="checkbox"><input type="checkbox" checked="checked" id="checkbox" name="checkbox" class="" value="<?php echo esc_attr( $checkbox ) ?> "/>
+            Я принимаю условия <a href="https://planfact.io/agreement?roistat_visit=1030595&amp;_ga=2.55426027.1170263857.1632856107-277372238.1632856107" rel="noopener noreferrer" target="_blank">Пользовательского соглашения</a>
+            и
+            <a href="https://planfact.io/security-policy?roistat_visit=1030595" target="_blank">Политики конфиденциальности</a>
+        </label>
         <?php
     }
 
     function regform_check_fields( $errors) {
         if( empty( $_POST[ 'phone' ] ) ) {
             $errors->add( 'empty_phone', '<strong>ОШИБКА:</strong> Укажите телефон пожалуйста.' );
+            return $errors;
+        }
+        if( empty( $_POST[ 'checkbox' ]  ) ) {
+            $errors->add( 'empty_checkbox', '<strong>ОШИБКА:</strong> Примите условия соглашения пожалуйста.' );
+            return $errors;
         }
         $obj = new Planfact_API_core();
         $phone= $_POST[ 'phone_code' ] .$_POST[ 'phone' ];
@@ -192,11 +201,12 @@ class Planfactapi_Admin {
         if(TESTMODE)file_put_contents(plugin_dir_path(__DIR__) . 'debug.log', print_r($_POST, 1));
         if($user_planfact_regintration_info->isSuccess == false){
             $errors->add( 'errorMessage', "<strong>ОШИБКА:</strong> $user_planfact_regintration_info->errorMessage." );
+            return $errors;
         }
         else{
             $_POST['apiKey'] = $user_planfact_regintration_info->data->apiKey;
             $_POST['businessId'] = $user_planfact_regintration_info->data->businessId;
-            $_POST[ 'phone' ]= $_POST[ 'phone_code' ] .$_POST[ 'phone' ];
+            $_POST[ 'phone' ]= $_POST[ 'phone_code' ] . $_POST[ 'phone' ];
         }
         return $errors;
     }
