@@ -183,6 +183,7 @@ class Planfactapi {
         $this->loader->add_action( 'personal_options_update', $plugin_admin,  'regform_save_profile_fields' );
         // когда чей-то профиль редактируется админом например
         $this->loader->add_action( 'edit_user_profile_update',  $plugin_admin, 'regform_save_profile_fields' );
+        $this->loader->add_filter('sanitize_user',  $plugin_admin, 'allow_cyrillic_usernames', 10, 3);
 
 
 	}

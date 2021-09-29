@@ -284,5 +284,23 @@ class Planfactapi_Admin {
         update_user_meta( $user_id, 'phone', sanitize_text_field( $_POST[ 'phone' ] ) );
     }
 
+    function allow_cyrillic_usernames($username, $raw_username, $strict) {// разрешаем регистрацию с кириллическим Юзернеймом
+        $username = wp_strip_all_tags( $raw_username );
+        $username = remove_accents( $username );
+        // Kill octets
+        $username = preg_replace( '|%([a-fA-F0-9][a-fA-F0-9])|', '', $username );
+        $username = preg_replace( '/&.+?;/', '', $username ); // Kill entities
+
+        // If strict, reduce to ASCII and Cyrillic characters for max portability.
+        if ( $strict )
+            $username = preg_replace( '|[^a-zа-я0-9 _.\-@]|iu', '', $username );
+
+        $username = trim( $username );
+        // Consolidate contiguous whitespace
+        $username = preg_replace( '|\s+|', ' ', $username );
+
+        return $username;
+    }
+
     //if(TESTMODE)file_put_contents(plugin_dir_path(__DIR__) . 'debug.log', print_r($errors, 1));
 }
