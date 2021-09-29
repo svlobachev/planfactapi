@@ -190,6 +190,10 @@ class Planfactapi_Admin {
             $errors->add( 'empty_checkbox', '<strong>ОШИБКА:</strong> Примите условия соглашения пожалуйста.' );
             return $errors;
         }
+        if(!filter_var( $_POST[ 'phone' ] ,FILTER_VALIDATE_INT)){
+            $errors->add( 'empty_checkbox', '<strong>ОШИБКА:</strong> Введите реальный номер телефона пожалуйста.' );
+            return $errors;
+        }
         $obj = new Planfact_API_core();
         $phone= $_POST[ 'phone_code' ] .$_POST[ 'phone' ];
         $user_planfact_regintration_info= $obj->remote_request_to_planfact(
@@ -301,6 +305,7 @@ class Planfactapi_Admin {
 
         return $username;
     }
+
 
     //if(TESTMODE)file_put_contents(plugin_dir_path(__DIR__) . 'debug.log', print_r($errors, 1));
 }

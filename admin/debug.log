@@ -1,15 +1,15 @@
 Array
 (
-    [user_login] => Сергей32
-    [user_email] => gsvlobachev+32@gmail.com
+    [user_login] => Сергей39
+    [user_email] => gsvlobachev+39@gmail.com
     [phone_code] => +7
-    [phone] => 89525687080
-    [checkbox] =>  
-    [loginpress-reg-pass] => 751db811d81b2b2ab2a845abca26b7
-    [loginpress-reg-pass-2] => 751db811d81b2b2ab2a845abca26b7
-    [cptch_code] => ckFGUnJKMno2SVZFZG1hR3lnSUxtVElWYVVMNUVOSWIrcHNXV1l5ZzZhdHAyaGJUR0VxU0JEYjgrSzFNb0ZYWW9na0c0dUpaRjkzYmtHelNIbGZ5WVpUUFZ4ZVppMEZFN0EwU0FCOGFTRzRaWERSV3ZTZGZmRlFxK3N0czByeHRJNnV1ZTkyZWU4WTJMamM2QldBMGNLc0c2S1RVUjdFd2hUVFNWSTNRZnhXbm5WN2FrWXhkREx3SjgwU0ZhM3Raa3A1WGhNMVc1NllPZE44VVZodEQrcWc5Ymd6RVdKelRTSFdDeW90VDFhdjJmamZWMFhHQUllUHo0bWZLSmZEVg==
-    [cptch_key] => bFkoNkNSU1VyaFk4JGJzUA==
+    [phone] => 9525687080
+    [checkbox] =>              
+    [loginpress-reg-pass] => 8cd32f55b9a3368f88e0ca8296bc14
+    [loginpress-reg-pass-2] => 8cd32f55b9a3368f88e0ca8296bc14
+    [cptch_code] => OFI1NnBwaWJpME9kcFNwaFpBbE4zNHUxNmViS3QyeVREZ2F1RG12U3Z0M3VBMXZHQ3ZQL3hSNHoxTUxjTjNPSnBEQmtrKzlTcmtOanhlT2haN3FhK2ppLzBqM1lMZlVKMnpSbDhkTVVtSmVmOWh3MDhLT2JhR0N0V2Eyc0M3cWVVdVh4bGxLN1YvVDY5Q3lTSUlQTkF3dTNrU05WL0puZ0tqeXNEbjhlaGFZWnI3UmZZQlFlZ3NlVHEyNWIwalJvb2EwN1ZUSjNSanRhU3Z5TXJyaUpEakNHNk1WK2N2d0NWcy9xVlZmL0JjekNWY3FGdDh5UEZMMVhPTDNkb1lTTg==
+    [cptch_key] => RE8/MEpobkNGMmFDRDUyQA==
     [redirect_to] => 
     [wp-submit] => Регистрация
-    [user_pass] => 751db811d81b2b2ab2a845abca26b7
+    [user_pass] => 8cd32f55b9a3368f88e0ca8296bc14
 )
