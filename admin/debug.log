@@ -1,15 +1,13 @@
 Array
 (
-    [user_login] => Сергей39
-    [user_email] => gsvlobachev+39@gmail.com
-    [phone_code] => +7
-    [phone] => 9525687080
-    [checkbox] =>              
-    [loginpress-reg-pass] => 8cd32f55b9a3368f88e0ca8296bc14
-    [loginpress-reg-pass-2] => 8cd32f55b9a3368f88e0ca8296bc14
-    [cptch_code] => OFI1NnBwaWJpME9kcFNwaFpBbE4zNHUxNmViS3QyeVREZ2F1RG12U3Z0M3VBMXZHQ3ZQL3hSNHoxTUxjTjNPSnBEQmtrKzlTcmtOanhlT2haN3FhK2ppLzBqM1lMZlVKMnpSbDhkTVVtSmVmOWh3MDhLT2JhR0N0V2Eyc0M3cWVVdVh4bGxLN1YvVDY5Q3lTSUlQTkF3dTNrU05WL0puZ0tqeXNEbjhlaGFZWnI3UmZZQlFlZ3NlVHEyNWIwalJvb2EwN1ZUSjNSanRhU3Z5TXJyaUpEakNHNk1WK2N2d0NWcy9xVlZmL0JjekNWY3FGdDh5UEZMMVhPTDNkb1lTTg==
-    [cptch_key] => RE8/MEpobkNGMmFDRDUyQA==
-    [redirect_to] => 
-    [wp-submit] => Регистрация
-    [user_pass] => 8cd32f55b9a3368f88e0ca8296bc14
+    [to] => 1gsvlobachev@gmail.com
+    [subject] => [%s] Регистрация нового пользователя
+    [message] => Имя пользователя: bezfindir79
+
+Телефон: +79525687080
+
+Маил: gsvlobachev+79@gmail.com
+
+
+    [headers] => From: Сайт БезФинДир <bezfindir@domain.ext>
 )

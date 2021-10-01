@@ -182,11 +182,15 @@ class Planfactapi {
         // когда пользователь сам редактирует свой профиль
         $this->loader->add_action( 'personal_options_update', $plugin_admin,  'regform_save_profile_fields' );
         // когда чей-то профиль редактируется админом например
-        $this->loader->add_action( 'edit_user_profile_update',  $plugin_admin, 'regform_save_profile_fields' );
-
+        $this->loader->add_action( 'edit_user_profile_update', $plugin_admin, 'regform_save_profile_fields' );
+        //добавим регистрацию на кириллице
         $this->loader->add_filter('sanitize_user',  $plugin_admin, 'allow_cyrillic_usernames', 10, 3);
-
-
+        // измененное уведомление админу о регистрации пользователя
+        $this->loader->add_filter( 'wp_new_user_notification_email_admin', $plugin_admin, 'custom_wp_new_user_notification_email_admin', 10, 3 );
+        // отключае отправку писем  при регистрации
+        remove_action( 'register_new_user', 'wp_send_new_user_notifications' );
+        // разрешаем отправку писем админу при регистрации нового пользователя
+        $this->loader->add_action( 'register_new_user', $plugin_admin,  'notify_only_admin' );
 	}
 
 	/**

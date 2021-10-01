@@ -306,6 +306,57 @@ class Planfactapi_Admin {
         return $username;
     }
 
+//Get all admin user ID's in the DB
+    function admin_user_ids(){
+        //Grab wp DB
+        global $wpdb;
+        //Get all users in the DB
+        $wp_user_search = $wpdb->get_results("SELECT ID, display_name FROM $wpdb->users ORDER BY ID");
+
+        //Blank array
+        $adminArray = array();
+        //Loop through all users
+        foreach ( $wp_user_search as $userid ) {
+            //Current user ID we are looping through
+            $curID = $userid->ID;
+            //Grab the user info of current ID
+            $curuser = get_userdata($curID);
+            //Current user level
+            $user_level = $curuser->user_level;
+            //Only look for admins
+            if($user_level >= 8){//levels 8, 9 and 10 are admin
+                //Push user ID into array
+                $adminArray[] = $curID;
+            }
+        }
+        return $adminArray;
+        //Usage
+//        $adminIdArray = $this->admin_user_ids();
+    }
+
+
+    function custom_wp_new_user_notification_email_admin( $wp_new_user_notification_email, $user, $blogname ) {
+
+        $phone = get_the_author_meta( 'phone', $user->ID );
+        $mail = $user->user_email;
+//        $apiKey = get_the_author_meta( 'apiKey', $user->ID );
+//        $businessId = get_the_author_meta( 'businessId', $user->ID );
+        $message = "Имя пользователя: $user->user_login" . "\r\n\r\n";
+        $message .= "Телефон: $phone" . "\r\n\r\n";
+        $message .= "Маил: $mail" . "\r\n\r\n";
+//        $message .= "ApiKey: $apiKey" . "\r\n\r\n";
+//        $message .= "BusinessId: $businessId" . "\r\n\r\n";
+        $wp_new_user_notification_email['message'] = $message;
+
+        $wp_new_user_notification_email['headers'] = 'From: Сайт БезФинДир <bezfindir@domain.ext>'; // this just changes the sender name and email to whatever you want (instead of the default WordPress <wordpress@domain.ext>
+        if(TESTMODE)file_put_contents(plugin_dir_path(__DIR__) . 'debug.log', print_r($wp_new_user_notification_email, 1));
+        return $wp_new_user_notification_email;
+    }
+
+    function notify_only_admin( $user_id, $notify = 'admin' )
+    {
+        wp_send_new_user_notifications( $user_id, $notify );
+    }
 
     //if(TESTMODE)file_put_contents(plugin_dir_path(__DIR__) . 'debug.log', print_r($errors, 1));
 }
