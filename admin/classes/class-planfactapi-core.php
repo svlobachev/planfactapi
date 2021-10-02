@@ -15,7 +15,7 @@
 class Planfact_API_core{
 
     function remote_request_to_planfact($user_nicename, $user_email, $user_phone) {
-        global $wpdb; // запрашиваем БД WP
+        global $wpdb;
         $table_name = $wpdb->get_blog_prefix() . 'planfactapi_settings';
         $result = $wpdb->get_results( "SELECT * FROM $table_name", ARRAY_A);
         foreach ( $result as $key => $row ) {
@@ -23,6 +23,7 @@ class Planfact_API_core{
         }
         $url = 'https://api.planfact.io/api/v1/';
         $link = $url.'businesses';
+//        $user_nicename = str_replace(' ','_', trim($user_nicename));
         $data = [
                 "email" => $user_email,
                 "countryIso2Code"=>  "Russia",
@@ -39,8 +40,9 @@ class Planfact_API_core{
         $obj_response = json_decode($response['body'] );
         return $obj_response ;
     }
+
     function settings() {
-        global $wpdb; // запрашиваем БД WP
+        global $wpdb;
         $table_name = $wpdb->get_blog_prefix() . 'planfactapi_settings';
         $result = $wpdb->get_results( "SELECT * FROM $table_name", ARRAY_A);
         foreach ( $result as $key => $row ) {

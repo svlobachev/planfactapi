@@ -1,13 +1,1 @@
-Array
-(
-    [to] => 1gsvlobachev@gmail.com
-    [subject] => [%s] Регистрация нового пользователя
-    [message] => Имя пользователя: bezfindir79
-
-Телефон: +79525687080
-
-Маил: gsvlobachev+79@gmail.com
-
-
-    [headers] => From: Сайт БезФинДир <bezfindir@domain.ext>
-)
+bezfindir
