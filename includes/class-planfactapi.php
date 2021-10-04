@@ -189,14 +189,14 @@ class Planfactapi {
 	private function define_public_hooks() {
 
 		$plugin_public = new Planfactapi_Public( $this->get_plugin_name(), $this->get_version() );
-		$plugin_regform = new Planfactapi_public_regform( $this->get_plugin_name(), $this->get_version() );
+		$plugin_feedback = new Planfactapi_public_feedback( $this->get_plugin_name(), $this->get_version() );
 		$plugin_sets = new Planfactapi_public_sets( $this->get_plugin_name(), $this->get_version() );
 		$plugin_ajax_action = new Planfactapi_public_ajax_action( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
-        $this->loader->add_shortcode( 'art_feedback', $plugin_regform,  'art_feedback' );
+        $this->loader->add_shortcode( 'art_feedback', $plugin_feedback,  'art_feedback' );
         $this->loader->add_action( 'wp_enqueue_scripts', $plugin_sets,  'art_feedback_scripts' );
         $this->loader->add_action( 'wp_ajax_feedback_action',$plugin_ajax_action, 'ajax_action_callback' );
         $this->loader->add_action( 'wp_ajax_nopriv_feedback_action',$plugin_ajax_action, 'ajax_action_callback' );

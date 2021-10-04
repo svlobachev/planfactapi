@@ -19,7 +19,7 @@
  * @subpackage Planfactapi/public/classes/
  * @author     Sergei Lobachev <gsvlobachev@gmail.com>
  */
-class Planfactapi_public_regform
+class Planfactapi_public_feedback
 {
     function art_feedback() {
         $phone_cities_codes = [

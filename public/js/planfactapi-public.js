@@ -1,48 +1,48 @@
 jQuery(document).ready(function ($) {
-	var add_form = $('#add_regform');
+	var add_form = $('#add_feedback');
 
 	// Сброс значений полей
-	$('#add_regform input, #add_regform textarea').on('blur', function () {
-		$('#add_regform input, #add_regform textarea').removeClass('error');
+	$('#add_feedback input, #add_feedback textarea').on('blur', function () {
+		$('#add_feedback input, #add_feedback textarea').removeClass('error');
 		$('.error-name,.error-email,.error-phone,.message-success').remove();
-		$('#submit-regform').val('Отправить');
+		$('#submit-feedback').val('Отправить');
 	});
 
 	// Отправка значений полей
 	var options = {
-		url: regform_object.url,
+		url: feedback_object.url,
 		data: {
-			action: 'regform_action',
-			nonce: regform_object.nonce
+			action: 'feedback_action',
+			nonce: feedback_object.nonce
 		},
 		type: 'POST',
 		dataType: 'json',
 		beforeSubmit: function (xhr) {
 			// При отправке формы меняем надпись на кнопке
-			$('#submit-regform').val('Отправляем...');
+			$('#submit-feedback').val('Отправляем...');
 		},
 		success: function (request, xhr, status, error) {
 
 			if (request.success === true) {
 				// Если все поля заполнены, отправляем данные и меняем надпись на кнопке
 				add_form.after('<div class="message-success">' + request.data + '</div>').slideDown();
-				$('#submit-regform').val('Отправить');
-				$('#add_regform')[0].reset();
+				$('#submit-feedback').val('Отправить');
+				$('#add_feedback')[0].reset();
 			} else {
 				// Если поля не заполнены, выводим сообщения и меняем надпись на кнопке
 				$.each(request.data, function (key, val) {
 					$('.art_' + key).addClass('error');
 					$('.art_' + key).before('<span class="error-' + key + '">' + val + '</span>');
 				});
-				// $('#submit-regform').val('Что-то пошло не так...');
-				$('#submit-regform').val('Отправить')
+				// $('#submit-feedback').val('Что-то пошло не так...');
+				$('#submit-feedback').val('Отправить')
 
 			}
 			// При успешной отправке сбрасываем значения полей
-			// $('#add_regform')[0].reset();
+			// $('#add_feedback')[0].reset();
 		},
 		error: function (request, status, error) {
-			$('#submit-regform').val('Что-то пошло не так...');
+			$('#submit-feedback').val('Что-то пошло не так...');
 		}
 	};
 	// Отправка формы
