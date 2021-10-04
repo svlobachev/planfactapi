@@ -48,7 +48,7 @@ class Planfactapi_public_regform
                         echo" <option name='art_phone_code' value=$city_code  >$city_code</option>";
                     }
                     ?>
-                    <label for="art_phone"></label><input type="text" maxlength="12" name="art_phone" id="art_phone" placeholder="Ваш телефон" class="required art_phone"/>
+                    <label for="art_phone"></label><input type="text" maxlength="12"  name="art_phone" id="art_phone" placeholder="Ваш телефон" class="required art_phone"/>
 
             </div>
 

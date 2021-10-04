@@ -108,7 +108,7 @@ class Planfactapi_public_ajax_action
             wp_mail( $email_to, $art_subject, $body, $headers );
 
             // Отправляем сообщение об успешной отправке
-            $message_success = 'Регистрация почти завершена. Пожалуйста, проверьте  вашу почту и подтвердите регистрацию.';
+            $message_success = 'Регистрация завершена. Пожалуйста, проверьте  вашу почту и подтвердите регистрацию.';
             wp_send_json_success( $message_success );
         }
 

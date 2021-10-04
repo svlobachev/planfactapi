@@ -2,7 +2,7 @@
 * Внешний вид формы
 */
 
-#add_feedback {
+#add_regform {
     margin: 20px 0 0;
     position: relative;
 }
@@ -28,7 +28,7 @@
     width: 30%;
 }
 
-#add_feedback .button {
+#add_regform .button {
     border: none;
     padding: 10px 20px;
     /*color: #fff;*/
@@ -38,7 +38,7 @@
     /*background-color: #2f94ce;*/
 }
 
-/*#add_feedback input[type="text"]:focus, #add_feedback input[type="password"]:focus, #add_feedback input[type="email"]:focus, #add_feedback textarea:focus {*/
+/*#add_regform input[type="text"]:focus, #add_regform input[type="password"]:focus, #add_feedback input[type="email"]:focus, #add_feedback textarea:focus {*/
 /*    color: cornflowerblue;*/
 /*    box-shadow: 0 0 3px rgba(68, 68, 68, 0.2);*/
 /*}*/
