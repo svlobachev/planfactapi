@@ -114,18 +114,19 @@ class Planfactapi {
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/classes/class-planfactapi-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-planfactapi-admin.php';
         require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/classes/class-planfactapi-core.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/classes/class-planfactapi-menu.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/classes/class-planfactapi-fields.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/classes/class-planfactapi-notification.php';
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/classes/class-planfactapi-wp-regform-tuning.php';
+
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-planfactapi-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/classes/class-planfactapi-form-registation.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/classes/class-planfactapi-sets.php';
+        require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/classes/class-planfactapi-ajax-action.php';
 
 		$this->loader = new Planfactapi_Loader();
 
@@ -160,12 +161,7 @@ class Planfactapi {
 		$plugin_admin = new Planfactapi_Admin( $this->get_plugin_name(), $this->get_version() );
         //добавим хуки класса меню
         $plugin_menu = new Planfactapi_menu( $this->get_plugin_name(), $this->get_version() );
-        //добавим хуки класса с полями для админки
-        $plugin_fields = new Planfactapi_fields( $this->get_plugin_name(), $this->get_version() );
-        //добавим хуки класса отправки уведомлений админу
-        $plugin_notification = new Planfactapi_notification( $this->get_plugin_name(), $this->get_version() );
-        //добавим хуки класса модификации регистрационной формыы Вордпресс
-        $plugin_wp_regform_tuning = new Planfactapi_wp_regform_tuning( $this->get_plugin_name(), $this->get_version() );
+
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -176,32 +172,6 @@ class Planfactapi {
         $this->loader->add_filter( 'plugin_action_links_' . "$plugin_basename", $plugin_menu, 'add_action_links' );
         $this->loader->add_action( 'admin_menu', $plugin_menu, 'remove_menu_setting_links' );
 
-        //добавим поля в админку в форму добавить пользователя
-        $this->loader->add_action( 'user_new_form', $plugin_fields, 'admin_registration_form' );
-        $this->loader->add_action( 'user_profile_update_errors', $plugin_fields, 'validate_fields_in_admin', 10, 3 );
-        $this->loader->add_action( 'edit_user_created_user', $plugin_fields, 'register_admin_fields' );
-        // когда пользователь сам редактирует свой профиль
-        $this->loader->add_action( 'show_user_profile', $plugin_fields,  'regform_show_profile_fields' );
-        // когда чей-то профиль редактируется админом например
-        $this->loader->add_action( 'edit_user_profile', $plugin_fields,  'regform_show_profile_fields' );
-        // когда пользователь сам редактирует свой профиль
-        $this->loader->add_action( 'personal_options_update', $plugin_fields,  'regform_save_profile_fields' );
-        // когда чей-то профиль редактируется админом например
-        $this->loader->add_action( 'edit_user_profile_update', $plugin_fields, 'regform_save_profile_fields' );
-
-        //модернизируем форму регистрации WordPress
-        $this->loader->add_action( 'register_form', $plugin_wp_regform_tuning, 'regform_show_fields', 1 );
-        $this->loader->add_filter( 'registration_errors', $plugin_wp_regform_tuning, 'regform_check_fields', 25, 3 );
-        $this->loader->add_action( 'user_register', $plugin_wp_regform_tuning, 'regform_register_fields' );
-        //добавим регистрацию на кириллице
-        $this->loader->add_filter('sanitize_user',  $plugin_wp_regform_tuning, 'allow_cyrillic_usernames', 10, 3);
-
-        // измененное уведомление админу о регистрации пользователя
-        $this->loader->add_filter( 'wp_new_user_notification_email_admin', $plugin_notification, 'custom_wp_new_user_notification_email_admin', 10, 3 );
-        // отключае отправку всех писем  при регистрации
-        remove_action( 'register_new_user', 'wp_send_new_user_notifications' );
-        // разрешаем отправку писем админу при регистрации нового пользователя
-        $this->loader->add_action( 'register_new_user', $plugin_notification,  'notify_only_admin' );
 
 
 
@@ -219,10 +189,17 @@ class Planfactapi {
 	private function define_public_hooks() {
 
 		$plugin_public = new Planfactapi_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_regform = new Planfactapi_public_regform( $this->get_plugin_name(), $this->get_version() );
+		$plugin_sets = new Planfactapi_public_sets( $this->get_plugin_name(), $this->get_version() );
+		$plugin_ajax_action = new Planfactapi_public_ajax_action( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
+        $this->loader->add_shortcode( 'art_feedback', $plugin_regform,  'art_feedback' );
+        $this->loader->add_action( 'wp_enqueue_scripts', $plugin_sets,  'art_feedback_scripts' );
+        $this->loader->add_action( 'wp_ajax_feedback_action',$plugin_ajax_action, 'ajax_action_callback' );
+        $this->loader->add_action( 'wp_ajax_nopriv_feedback_action',$plugin_ajax_action, 'ajax_action_callback' );
 	}
 
 	/**
