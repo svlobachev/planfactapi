@@ -189,7 +189,7 @@ class Planfactapi {
 	private function define_public_hooks() {
 
 		$plugin_public = new Planfactapi_Public( $this->get_plugin_name(), $this->get_version() );
-		$plugin_feedback = new Planfactapi_public_feedback( $this->get_plugin_name(), $this->get_version() );
+		$plugin_feedback = new Planfactapi_public_regform( $this->get_plugin_name(), $this->get_version() );
 		$plugin_sets = new Planfactapi_public_sets( $this->get_plugin_name(), $this->get_version() );
 		$plugin_ajax_action = new Planfactapi_public_ajax_action( $this->get_plugin_name(), $this->get_version() );
 
