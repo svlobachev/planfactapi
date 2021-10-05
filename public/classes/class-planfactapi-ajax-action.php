@@ -59,7 +59,7 @@ class Planfactapi_public_ajax_action
         }
         // Проверяем полей темы письма, если пустое, то пишем сообщение по умолчанию
         if ( empty( $_POST['art_subject'] ) || ! isset( $_POST['art_subject'] ) ) {
-            $art_subject = 'Сообщение с сайта БезФинДир';
+            $art_subject = 'Зарегистрирован новый пользователь ПланФакт';
         } else {
             $art_subject = sanitize_text_field( $_POST['art_subject'] );
         }
