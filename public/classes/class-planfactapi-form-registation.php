@@ -21,7 +21,7 @@
  */
 class Planfactapi_public_regform
 {
-    function art_feedback() {
+    function art_regform() {
         $phone_cities_codes = [
             '+7',
             '+375',
@@ -31,7 +31,7 @@ class Planfactapi_public_regform
         ];
         ob_start();
         ?>
-        <form novalidate id="add_feedback">
+        <form novalidate id="add_regform">
             <div>
                 <label for="art_name"></label><input type="text" maxlength="100"  name="art_name" id="art_name" class="required art_name " placeholder="Ваше имя" value=""/>
             </div>
@@ -53,17 +53,21 @@ class Planfactapi_public_regform
             </div>
 
 
-            <label for="art_anticheck"></label><input type="checkbox" name="art_anticheck" id="art_anticheck" class="art_anticheck" style="display: none !important;" value="true" checked="checked"/>
+            <label for="art_anticheck"></label><input type="checkbox" name="art_anticheck" id="art_anticheck" class="art_anticheck" style="display: none !important;" value="true" checked="checked" />
 
             <label for="art_submitted"></label><input type="text" name="art_submitted" id="art_submitted" value="" style="display: none !important;"/>
+            <div>
 
-            <label for="art_checkbox"></label><input type="checkbox" checked="checked" id="art_checkbox" name="art_checkbox" class="art_checkbox"/>
+            <label for="art_checkbox"></label>
+
+                <input type="checkbox" checked="checked" id="art_checkbox" name="art_checkbox" class="required art_checkbox" placeholder=""/>
+
                 Я принимаю условия <a href="https://planfact.io/agreement?roistat_visit=1030595&amp;_ga=2.55426027.1170263857.1632856107-277372238.1632856107" rel="noopener noreferrer" target="_blank">Пользовательского соглашения</a>
                 и
                 <a href="https://planfact.io/security-policy?roistat_visit=1030595" target="_blank">Политики конфиденциальности</a>
+            </div>
 
-
-            <input type="submit" id="submit-feedback" class="button" value="Отправить"/>
+            <input type="submit" id="submit-regform" class="button" value="Отправить"/>
 
 
         </form>

@@ -2,12 +2,12 @@
 * Внешний вид формы
 */
 
-#add_feedback {
+#add_regform {
     margin: 20px 0 0;
     position: relative;
 }
 
-#art_name, #art_email, #art_subject, #art_phone, #art_phone_code {
+#art_name, #art_email, #art_subject, #art_phone, #art_phone_code{
     padding: 10px 5px;
     display: inline-block;
     width: 100%;
@@ -18,7 +18,6 @@
 
 #art_subject {
     width: 100%;
-
 }
 
 #art_phone {
@@ -28,7 +27,8 @@
     width: 30%;
 }
 
-#add_feedback .button {
+
+#add_regform .button {
     border: none;
     padding: 10px 20px;
     /*color: #fff;*/
@@ -38,7 +38,7 @@
     /*background-color: #2f94ce;*/
 }
 
-/*#add_feedback input[type="text"]:focus, #add_feedback input[type="password"]:focus, #add_feedback input[type="email"]:focus, #add_feedback textarea:focus {*/
+/*#add_regform input[type="text"]:focus, #add_regform input[type="password"]:focus, #add_regform input[type="email"]:focus, #add_regform textarea:focus {*/
 /*    color: cornflowerblue;*/
 /*    box-shadow: 0 0 3px rgba(68, 68, 68, 0.2);*/
 /*}*/
@@ -51,7 +51,7 @@
     border-radius: 10px;
 }
 
-.error-name, .error-email, .error-phone {
+.error-name, .error-email, .error-phone, .error-checkbox{
     display: inline-block;
     font-size: 11px;
     position: absolute;
@@ -64,7 +64,7 @@
     box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3);
 }
 
-.error-name:after, .error-email:after, .error-phone:after {
+.error-name:after, .error-email:after, .error-phone:after, .error-checkbox:after{
     content: '';
     position: absolute;
     left: 20px;
@@ -89,6 +89,11 @@
     top: 27%;
     left: 0;
 }
+
+.error-checkbox {
+    top: 47%;
+    left: 0;
+}
 .message-success {
     background: rgba(0, 128, 0, 0.5);
     color: #fff;
@@ -98,13 +103,13 @@
     border-radius: 3px;
 }
 
-#add_feedback .error {
+#add_regform .error {
     border: 3px solid red;
 
 }
 
-#add_feedback .required:after {
-    content: '*';
+#add_regform .required:after {
+    content: '';
     position: absolute;
     left: 20px;
     bottom: -10px;
@@ -126,6 +131,11 @@
 #art_phone_code:focus::-moz-placeholder,
 #art_phone_code:focus:-moz-placeholder,
 #art_phone_code:focus:-ms-input-placeholder,
+
+#art_checkbox:focus::-webkit-input-placeholder,
+#art_checkbox:focus::-moz-placeholder,
+#art_checkbox:focus:-moz-placeholder,
+#art_checkbox:focus:-ms-input-placeholder,
 
 #art_subject:focus::-webkit-input-placeholder,
 #art_subject:focus::-moz-placeholder,

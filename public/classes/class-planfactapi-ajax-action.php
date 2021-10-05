@@ -32,7 +32,7 @@ class Planfactapi_public_ajax_action
         $err_message = array();
 
         // Проверяем nonce. Если проверкане прошла, то блокируем отправку
-        if ( ! wp_verify_nonce( $_POST['nonce'], 'feedback-nonce' ) ) {
+        if ( ! wp_verify_nonce( $_POST['nonce'], 'regform-nonce' ) ) {
             wp_die( 'Данные отправлены с левого адреса' );
         }
 
@@ -75,10 +75,10 @@ class Planfactapi_public_ajax_action
 
         }        // Проверяем полей checkbox, если пустое, то пишем сообщение в массив ошибок
         if ( empty( $_POST['art_checkbox'] ) || ! isset( $_POST['art_checkbox'] ) ) {
-            $err_message['art_checkbox'] = 'Пожалуйста, согласитесь с условиями.';
+            $err_message['checkbox'] = 'Пожалуйста, согласитесь с условиями.';
         }
         else {
-            $art_phone = sanitize_textarea_field( $_POST['art_phone'] );
+            $art_phone = sanitize_textarea_field( $_POST['art_checkbox'] );
         }
 
         // Проверяем массив ошибок, если не пустой, то передаем сообщение. Иначе отправляем письмо
@@ -108,7 +108,7 @@ class Planfactapi_public_ajax_action
             wp_mail( $email_to, $art_subject, $body, $headers );
 
             // Отправляем сообщение об успешной отправке
-            $message_success = 'Регистрация завершена. Пожалуйста, проверьте  вашу почту и подтвердите регистрацию.';
+            $message_success = 'Регистрация почти завершена. Пожалуйста, проверьте  вашу почту и подтвердите регистрацию.';
             wp_send_json_success( $message_success );
         }
 
