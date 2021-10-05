@@ -26,7 +26,7 @@ class Planfact_API_core{
 //        $user_nicename = str_replace(' ','_', trim($user_nicename));
         $data = [
                 "email" => $user_email,
-                "countryIso2Code"=>  "Russia",
+//                "countryIso2Code"=>  "Russia",
                 "phoneNumber"=>  $user_phone,
                 "firstName"=>  $user_nicename,
                 "partnerApiKey"=>  $api_key

@@ -51,7 +51,7 @@ class Planfactapi_public_ajax_action
         // Проверяем полей емайла, если пустое, то пишем сообщение в массив ошибок
         if ( empty( $_POST['art_email'] ) || ! isset( $_POST['art_email'] ) ) {
             $err_message['email'] = 'Пожалуйста, введите адрес вашей электронной почты.';
-        } elseif ( ! preg_match( '/^[[:alnum:]][a-z0-9_.-]*@[a-z0-9.-]+\.[a-z]{2,4}$/i', $_POST['art_email'] ) ) {
+        } elseif ( ! preg_match( '/^[[:alnum:]][+a-z0-9_.-]*@[a-z0-9.-]+\.[a-z]{2,4}$/i', $_POST['art_email'] ) ) {
             $err_message['email'] = 'Адрес электронной почты некорректный.';
         } else {
             $art_email = sanitize_email( $_POST['art_email'] );
@@ -59,7 +59,7 @@ class Planfactapi_public_ajax_action
         }
         // Проверяем полей темы письма, если пустое, то пишем сообщение по умолчанию
         if ( empty( $_POST['art_subject'] ) || ! isset( $_POST['art_subject'] ) ) {
-            $art_subject = 'Сообщение с сайта';
+            $art_subject = 'Сообщение с сайта БезФинДир';
         } else {
             $art_subject = sanitize_text_field( $_POST['art_subject'] );
         }
@@ -77,22 +77,49 @@ class Planfactapi_public_ajax_action
         if ( empty( $_POST['art_checkbox'] ) || ! isset( $_POST['art_checkbox'] ) ) {
             $err_message['checkbox'] = 'Пожалуйста, согласитесь с условиями.';
         }
-        else {
-            $art_phone = sanitize_textarea_field( $_POST['art_checkbox'] );
-        }
 
+        if (empty($err_message)  ) {//если нет ошибок формы то запрашиваем ПланФакт по API
+
+            $obj = new Planfact_API_core();
+            $user_planfact_regintration_info = $obj->remote_request_to_planfact($art_name, $art_email, $art_phone);
+            if ($user_planfact_regintration_info->isSuccess == false) {
+                $err_message['email'] = $user_planfact_regintration_info->errorMessage;
+            } else {
+                $apiKey = $user_planfact_regintration_info->data->apiKey;
+                $businessId = $user_planfact_regintration_info->data->businessId;
+            }
+        }
+        file_put_contents(plugin_dir_path(__DIR__) . 'debug.log', print_r($err_message, 1));
         // Проверяем массив ошибок, если не пустой, то передаем сообщение. Иначе отправляем письмо
         if ( $err_message ) {
 
             wp_send_json_error( $err_message );
 
         } else {
+            // вытаскиваем из базы маил для отсылки писем о регистрации
+            global $wpdb;
+            $table_name = $wpdb->get_blog_prefix() . 'planfactapi_settings';
+            $result = $wpdb->get_results( "SELECT * FROM $table_name", ARRAY_A);
+            foreach ( $result as $key => $row ) {
+                if($row['name'] == 'mail')$email_to = $row['value'];
+            }
 
-            // Указываем адресата
-            $email_to = '';
+            // пишем юзера в базу
+            global $wpdb;
+            $table_name = $wpdb->get_blog_prefix() . 'planfactapi_users';
+            $wpdb->insert( $table_name, [
+                'name' => $art_name,
+                'mail' => $art_email,
+                'phone' => $art_phone,
+                'api_key' => $apiKey,
+                'bz_key' => $businessId,
+                'timestamp' => time()
+            ],
+                [ '%s', '%s', '%s','%s', '%s', '%s'] );
 
+//            if(TESTMODE)file_put_contents(plugin_dir_path(__DIR__) . 'debug.log', print_r($email_to, 1));
             // Если адресат не указан, то берем данные из настроек сайта
-            if ( ! $email_to ) {
+            if ( ! $email_to || $email_to == '') {
                 $email_to = get_option( 'admin_email' );
             }
 
@@ -100,9 +127,9 @@ class Planfactapi_public_ajax_action
             $body = "Имя пользователя: $art_name" . "\r\n\r\n";
             $body .= "Телефон: $art_phone" . "\r\n\r\n";
             $body .= "Маил: $art_email" . "\r\n\r\n";
-//            $body .= "ApiKey: $apiKey" . "\r\n\r\n";
 //            $body .= "BusinessId: $businessId" . "\r\n\r\n";
-            $headers = 'From: ' . $art_name . ' <' . $email_to . '>' . "\r\n" . 'Reply-To: ' . $email_to;
+//            $body .= "ApiKey: $apiKey" . "\r\n\r\n";
+            $headers = 'From: БезФинДир <' . $email_to . '>' . "\r\n" . 'Reply-To: ' . $email_to;
 
             // Отправляем письмо
             wp_mail( $email_to, $art_subject, $body, $headers );

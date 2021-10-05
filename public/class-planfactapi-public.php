@@ -97,6 +97,7 @@ class Planfactapi_Public {
 		 */
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/planfactapi-public.js', array( 'jquery' ), $this->version, false );
+//		wp_enqueue_script( $this->plugin_name.'api.js',  'https://www.google.com/recaptcha/api.js?render=reCAPTCHA_6LfegYEcAAAAACPmChtdzZDwUEcJ0xM3_yCt06UP', array( 'jquery' ), $this->version, false );
 
 	}
 

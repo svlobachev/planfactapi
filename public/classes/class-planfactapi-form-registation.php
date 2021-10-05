@@ -39,18 +39,10 @@ class Planfactapi_public_regform
 
 <!--            <input type="text" name="art_subject" id="art_subject" class="art_subject" placeholder="Тема сообщения" value=""/>-->
 
-            <div style="display:  flex" >
-                <label for="art_phone_code"></label><select id="art_phone_code" name="art_phone_code" class="required art_phone_code" >
-                    ?> <?php
-                    foreach ($phone_cities_codes as $city_code){
-//                        if($city_code == $art_phone_code && $art_phone_code != '') $selected = 'selected';
-//                        else $selected = '';
-                        echo" <option name='art_phone_code' value=$city_code  >$city_code</option>";
-                    }
-                    ?>
-                    <label for="art_phone"></label><input type="text" maxlength="12"  name="art_phone" id="art_phone" placeholder="Ваш телефон" class="required art_phone"/>
 
-            </div>
+                    <label for="art_phone"></label><input type="text" maxlength="15"  name="art_phone" id="art_phone" placeholder="Ваш телефон" class="required art_phone"/>
+
+
 
 
             <label for="art_anticheck"></label><input type="checkbox" name="art_anticheck" id="art_anticheck" class="art_anticheck" style="display: none !important;" value="true" checked="checked" />
@@ -69,9 +61,9 @@ class Planfactapi_public_regform
 
             <input type="submit" id="submit-regform" class="button" value="Отправить"/>
 
-
         </form>
         <?php
+        do_action( 'anr_captcha_form_field' );
         return ob_get_clean();
     }
 }

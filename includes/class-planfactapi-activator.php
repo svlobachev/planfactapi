@@ -49,9 +49,23 @@ class Planfactapi_Activator {
         $result = $wpdb->get_results( "SELECT * FROM $table_name", ARRAY_A);
         if(empty($result)) {// если таблица пуста вставим значение по умолчанию
             $wpdb->insert( $table_name, [ 'name' => 'api_key', 'value' => 'Ваш ПланФакт api_key'], [ '%s', '%s' ] );
+            $wpdb->insert( $table_name, [ 'name' => 'mail', 'value' => 'Ваш маил для писем о ргистрации'], [ '%s', '%s' ] );
         }
 
-
+        $table_name = $wpdb->get_blog_prefix() . 'planfactapi_users';
+        $charset_collate = "DEFAULT CHARACTER SET {$wpdb->charset} COLLATE {$wpdb->collate}";
+        $sql = "CREATE TABLE {$table_name} (
+	    id int(11) unsigned NOT NULL auto_increment,
+	    name varchar(255) NULL,
+	    mail varchar(255) NULL,
+	    phone varchar(255) NULL,
+	    api_key text NULL,
+	    bz_key varchar(255) NULL,
+	    timestamp varchar(255) NULL,
+	    PRIMARY KEY  (id),
+	    KEY id (id)
+		) {$charset_collate};";
+        dbDelta( $sql );// Создать таблицу.
 
         if(TESTMODE) {
             // Пишем лог ошибок при активации которые нужно исправить

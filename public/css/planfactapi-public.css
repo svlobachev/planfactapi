@@ -7,7 +7,7 @@
     position: relative;
 }
 
-#art_name, #art_email, #art_subject, #art_phone, #art_phone_code{
+#art_name, #art_email, #art_subject, #art_phone{
     padding: 10px 5px;
     display: inline-block;
     width: 100%;
@@ -23,9 +23,7 @@
 #art_phone {
     width: 100%;
 }
- #art_phone_code{
-    width: 30%;
-}
+
 
 
 #add_regform .button {
@@ -127,10 +125,6 @@
 #art_phone:focus:-moz-placeholder,
 #art_phone:focus:-ms-input-placeholder,
 
-#art_phone_code:focus::-webkit-input-placeholder,
-#art_phone_code:focus::-moz-placeholder,
-#art_phone_code:focus:-moz-placeholder,
-#art_phone_code:focus:-ms-input-placeholder,
 
 #art_checkbox:focus::-webkit-input-placeholder,
 #art_checkbox:focus::-moz-placeholder,
