@@ -30,7 +30,7 @@ class Planfactapi_public_sets
         wp_enqueue_script(
             'regform',
 //            get_stylesheet_directory_uri() . '/js/regform.js',
-            array( 'jquery' ),
+            'jquery',
             1.0,
             true
         );
